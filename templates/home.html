@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    body {
+        overflow: hidden;
+        background-color: #222;
+    }
+    .row {
+        overflow: hidden;
+    }
+    .col-md-6-2 {
+        height: 80vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .col-md-6-1 {
+        height: 90vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        box-shadow: #9D00FF 0px 3px 8px;
+        box-shadow: white 0px 3px 8px;
+        padding-bottom: 30px;
+    }
+    .col-md-6-1 p {
+    	    text-align: justify;
+    	    padding: 20px
+    }
+    .col-md-6-1 h1 {
+    	    padding: 0px 20px;
+    	    color: #00FFFF !important;
+    }
+
+    #home_btn {
+        border-radius: 5px;
+        width: 40%;
+        padding: 10px;
+        color: white;
+        background: black;
+        box-shadow: #FF00CC 0px 3px 8px;
+    }
+
+    #home_btn:hover {
+        box-shadow: #099FFF 0px 3px 8px;
+    }
+</style>
+<div class="row">
+<div class="col-md-6 col-md-6-1">
+    <h1 style="color: white; font-weight: bold;">SUMMARIZER</h1><h1 style="color: white; font-weight: bold;"></h1>
+    <p style="color: white;">Effortlessly condense long articles, documents, or reports into brief summaries with our powerful summarizer tool. Ideal for quick insights, our AI-driven platform delivers clear and concise overviews, saving you time and effort. Start summarizing now to grasp key information in seconds.</p>
+</div>
+<div class="col-md-6 col-md-6-2 ">
+    <a id="home_btn" href="{{ url_for('main_chat') }}">Let's Start </a>
+</div>
+
+{% endblock %}

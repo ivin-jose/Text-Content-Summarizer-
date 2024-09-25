@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap and jQuery scripts (include them in your template) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+  <!-- BOOTSTRAP 5 CDN -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <!-- JQUERY AJAX CDN -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-eoIsAZa7iLW10Q+RY5CAvrDein9o4Vefc8iBRoKUQ7g=" crossorigin="anonymous"></script>
+
+  <!-- FONT AWSOME CDN -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Internal CSS -->
+    <link href="{{ url_for('static', filename='css/admin.css') }}" rel="stylesheet">
+
+    <!-- Internal js -->
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+</head>
+
+<body>
+<!--     <div id="adminpreloadera">
+        <div class="loader">Loading...</div>
+    </div> -->
+
+  <nav class="nvbr" style="">
+    <div class="logo">
+      ADMIN PANEL
+    </div>
+    <div>
+
+
+      {% if 'admin_name' in session %}
+      <div class="dropdown">
+        <a class="btn nav-user dropdown-toggle" href="" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="color: white !important;">
+          {{ session['admin_name'] }}
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="" style="color: red; text-transform: capitalize;">Logout</a></li>
+        </ul>
+      </div>
+      {% endif %}
+
+    </ul>
+  </nav>
+
+  <div class="row">
+      <div class="col-lg-6">
+     <!--sidebar start-->
+     <aside>
+      <div id="sidebar"  class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu">
+        <li class="{% if 'admin_dashboard' in request.url_rule.endpoint %}active{% endif %}">
+          <a class="" href="{{url_for('admin_dashboard')}}">
+              <i class="icon_house_alt"></i>
+              <span>ADMINS</span>
+          </a>
+       </li>
+      <li class="{% if 'users_admin' in request.url_rule.endpoint %}active{% endif %}">
+        <a class="" href="{{url_for('users_admin')}}">
+          <i class="icon_house_alt"></i>
+          <span>USERS</span>
+        </a>
+      </li>
+
+     </ul>
+  <!-- sidebar menu end-->
+</div>
+</aside>
+</div>
+  {% block content %}
+
+  {% endblock %}
+</body>
+</html>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $(".adminRemoveConfirmation").click(function() {
+            $(".adminRemoveConfirmation").hide()
+            $(".deleteConfirmation_").show()
+        })
+
+        $("#adminAddPlus").hover(function() {
+            $("#adminAddText").show()
+        })
+         $("#adminAddPlus").mouseleave(function() {
+            $("#adminAddText").hide()
+        })
+    })
+</script>
+
+

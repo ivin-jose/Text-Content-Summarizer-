@@ -1,0 +1,83 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+<div class="col-lg-10" style="margin-top: 0px; margin-left: 200px;">
+<!-- Button trigger modal -->
+
+
+<!-- admin adding status Modal -->
+<div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel" style="color: green;">Status</h5>
+                <button type="button" class="" data-dismiss="modal" aria-label="">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>{{ add_status_message }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- admin deleting status Modal -->
+<div class="modal fade" id="dltErrorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel" style="color: red;">Status</h5>
+                <button type="button" class="" data-dismiss="modal" aria-label="">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>{{ dlt_status_message }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<table class="table table-striped" style="font-family: system-ui;">
+  <thead>
+    <tr>
+      <th scope="col">S {{ users|length }}</th>
+      <th scope="col">Admin</th>
+    </tr>
+  </thead>
+    <tbody>
+{% for row in users %}
+<tr>
+  <th scope="row">{{ loop.index }}</th>
+  <td>{{ row[1] }}</td>
+  
+  <!-- Add unique IDs for the Remove link and its associated close button -->
+  
+  {% endfor %}
+  </tbody>
+</table>
+    </div>
+</div>
+
+<!-- Fact validating  -->
+<script>
+$(document).ready(function() {
+     {% if add_status_message %}
+        $('#statusModal').modal('show');
+        $('#fact_Add_Form')[0].reset();
+    {% endif %}
+    {% if dlt_status_message %}
+        $('#dltErrorModal').modal('show');
+        $('#fact_Add_Form')[0].reset();
+    {% endif %}
+});
+$(document).ready(function() {
+     $(".RemoveConfirmation").click(function() {
+            $(".RemoveConfirmation").hide()
+            $(".deleteConfirmation_").show()
+        })
+})
+</script>
+{% endblock %}

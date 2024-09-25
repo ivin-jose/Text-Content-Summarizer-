@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summarizer</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Internal CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .hero {
+            background: #222;
+            color: #fff;
+            padding: 80px 0;
+        }
+        .hero h1 {
+            font-size: 3rem;
+        }
+        .hero p {
+            font-size: 1.25rem;
+        }
+        .card {
+            border-radius: 0.5rem;
+        }
+        footer {
+            background: #343a40;
+        }
+        footer p {
+            margin: 0;
+        }
+        textarea {
+            height: 30vh;
+            width: 60%;
+            border: 2px solid black;
+        }
+        .f1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+/*            border: 2px solid black;*/
+        }
+        #sm-btn {
+            background: #222;
+            color: white;
+            border: 0px;
+            padding: 12px;
+            border-radius: 5px;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Summarizer</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('history') }}">History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero text-center text-white">
+        <div class="container">
+            <h1 class="display-4">Welcome to Summarizer</h1>
+            <p class="lead">Discover the revolutionary features of the latest Summarizer.</p>
+            <p class="lead">Search words for get brief note</p>
+        </div>
+    </header>
+
+    <!-- Form section -->
+
+    <section><form method="POST" id="textform" name="textform">
+        <div class="f1">
+            <textarea name="content" required placeholder="Enter the sentance for summarize" style="padding: 5px;"></textarea><br>
+            <input type="submit" name="" value="Summarize" id="sm-btn">
+        </div>
+    </form>
+    </section>
+
+<center>
+    {% if  summ %}
+    <div class="row">
+        <div class="col-md-12" style="width: 60%">
+            <div class="card mb-12" style="width: 60%">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-"></i> Summarized Content</h5>
+                    <p class="card-text" style="text-align: justify;">{{ summ }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</center>
+<div id="point"></div>
+
+  
+    
+    <script>
+        // You can add custom JavaScript here
+    </script>
+</body>
+</html>
+
+<script type="text/javascript">
+    window.onload = function() {
+            document.getElementById("point").scrollIntoView();
+        };
+</script>
