@@ -10,6 +10,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <!-- Internal CSS -->
     <style>
+        textarea {
+            text-transform: capitalize;
+        }
         body {
             font-family: Arial, sans-serif;
         }
@@ -54,6 +57,84 @@
             width: 150px;
         }
     </style>
+    <style type="text/css">
+        .microphone {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;  
+}
+
+.button {
+  cursor: pointer;
+}
+
+.button:active,
+.button:focus {
+  border: 1px solid #274957;
+  color: #274957;
+  outline: none; 
+}
+
+.button--microphone {
+  background-color: transparent;
+  border: 1px solid #447694;
+  border-radius: 50%;
+  color: #447694;
+  font-size: 3vh;
+  height: 8vh;    
+  transition: all .1s;
+  width: 8vh;
+}
+
+.button--microphone-active {
+  background-color: transparent;    
+  border: 1px solid #ff5852;
+  border-radius: 50%;
+  color: #ff5852;
+  font-size: 50vh;
+  height: 70vh;
+  transition: all .1s;    
+  width: 70vh;
+}
+
+.button--microphone-active:active,
+.button--microphone-active:focus {
+  border: 1px solid #ff5852;
+  color: #ff5852;
+  outline: none; 
+}
+
+.button--microphone-recording-failure {
+  border-color: red;
+  color: red;
+}
+
+.button--microphone-recording-failure:active,
+.button--microphone-recording-failure:focus {
+  border-color: red;
+  color: red;
+}
+
+.button--microphone-recording-success {
+  border-color: #88d8b0;
+  color: #88d8b0;
+}
+
+.button--microphone-recording-success:active,
+.button--microphone-recording-success:focus {
+  border-color: #88d8b0;
+  color: #88d8b0;
+}
+
+#mic {
+    width: 100%;
+    /* height: 20vh; */
+    display: flex;
+    justify-content: center;
+}
+
+    </style>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -83,15 +164,35 @@
         </div>
     </header>
 
+
     <!-- Form section -->
 
-    <section><form method="POST" id="textform" name="textform">
+    <section>
+        <form method="POST" id="textform" name="textform">
         <div class="f1">
-            <textarea name="content" required placeholder="Enter the sentance for summarize" style="padding: 5px;"></textarea><br>
+            <textarea name="content" required placeholder="Enter the sentance for summarize" style="padding: 5px;">{{ session['recording'] }}</textarea><br>
             <input type="submit" name="" value="Summarize" id="sm-btn">
         </div>
     </form>
     </section>
+
+    <!-- Microphone section -->
+
+<div id="mic" style="width: 100%; height: 20vh">
+     <button id="js-microphone" class="js-microphone button button--microphone" style="display: none;">
+    <i class="fas fa-microphone"></i>
+    </button>
+
+    <button id="js-stop-microphone" class="js-microphone button button--microphone stop-microphone"  style="display: none;">
+    <i class="fas fa-microphone" style="color: red" ></i>
+    </button>
+
+    <button id="mci" class="js-microphone button button--microphone stop-microphone">
+    <i class="fas fa-microphone" style="color: green"></i>
+    </button>
+
+</div>
+
 
 <center>
     {% if  summ %}
@@ -122,3 +223,35 @@
             document.getElementById("point").scrollIntoView();
         };
 </script>
+
+<script>
+    // Wait until the DOM is fully loaded
+    document.addEventListener("DOMContentLoaded", () => {
+        const mciButton = document.getElementById("mci");
+
+        // Ensure the button exists before attaching the listener
+        if (mciButton) {
+            mciButton.addEventListener("click", redirect);
+        }
+    });
+
+    function redirect() {
+        const mciButton = document.getElementById("mci");
+        
+        // Disable the button
+        if (mciButton) {
+            mciButton.disabled = true;  // Disable the button
+            mciButton.style.border = "0px";  
+            mciButton.style.width = "200px";
+            mciButton.style.border = "0px";  
+            mciButton.textContent = "Recording...";  // Optional: Change button text
+
+        }
+
+        // Redirect to the specified URL after 1 second
+        setTimeout(() => {
+            window.location.href = '/summarizer.com/main-chat-recorder'; // Adjust this URL if necessary
+        }, 1000);
+    }
+</script>
+ 

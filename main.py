@@ -140,7 +140,9 @@ def main_chat():
         summ = ''
         if request.method == 'POST':
             sentance = request.form.get('content')
+            session.pop('recording', None)
 
+            # remove session['recording']
             try:
                 # Insert the new admin into the database
                 cursor = mysql.connection.cursor()
@@ -182,6 +184,35 @@ def main_chat():
         return render_template('summarizer.html', summ=summ)
     else:
         return redirect('/summarizer.com/login')
+
+
+@app.route('/summarizer.com/main-chat-recorder', methods=['POST', 'GET'])
+def main_chat_recorder():
+    if 'userid' in session:
+        import speech_recognition as sr
+
+        # Initialize recognizer
+        recognizer = sr.Recognizer()
+
+        # Capture speech input from the microphone
+        with sr.Microphone() as source:
+            print("Say something:")
+            audio = recognizer.listen(source)
+
+        # Use Google Web Speech API for recognition
+        try:
+            speech =  recognizer.recognize_google(audio) 
+            print("You said: " + recognizer.recognize_google(audio))
+            print("You said : ", speech)
+            session['recording'] = speech
+        except sr.UnknownValueError:
+            error = ("Audio is not clear! try again.")
+            session['recording'] = error
+        except sr.RequestError as e:
+            print("Could not request results from Google Speech Recognition service; {0}".format(e))
+
+    return redirect('/summarizer.com/main-chat')
+
 
 
 ''' History '''
